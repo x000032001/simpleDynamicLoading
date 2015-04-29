@@ -1,0 +1,5 @@
+<name>mem</name>
+<libname>./libmem.so.1</libname>
+<funcname>printMem</funcname>
+<optype>INSERT</optype>
+<freq>5</freq>

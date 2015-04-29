@@ -1,14 +1,11 @@
 #!/bin/bash
 
-SRC_NAME=lib
-LIB_NAME=libmem.so
+rm libmem* libdsk.so*
 
-rm ${LIB_NAME}*
+g++ -c -fPIC lib.cpp -o lib.o
+g++ -shared -Wl,-soname,libmem.so.1 -o libmem.so.1.0.0 lib.o
 
-g++ -c -fPIC ${SRC_NAME}.cpp -o ${SRC_NAME}.o
-g++ -shared -Wl,-soname,${LIB_NAME}.1 -o ${LIB_NAME}.1.0.0 lib.o
+g++ -c -fPIC lib2.cpp -o lib2.o
+g++ -shared -Wl,-soname,libdsk.so.1 -o libdsk.so.1.0.0 lib2.o
 
-ln -s ${LIB_NAME}.1.0.0 ${LIB_NAME}
-ln -s ${LIB_NAME}.1.0.0 ${LIB_NAME}.1
-
-g++ main.cpp tinyxml2.cpp -o main -ldl -lpthread
+g++ -g main.cpp tinyxml2.cpp -o main -ldl -lpthread

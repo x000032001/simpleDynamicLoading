@@ -2,4 +2,4 @@
 #include <stdlib.h>
 #include "args.h"
 
-extern "C" void* printMem(void*);
+extern "C" void* printDisk(void*);

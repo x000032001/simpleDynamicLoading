@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-extern "C" void* printMem(void* param)
+extern "C" void* printDisk(void* param)
 {
 	struct args *prm = (struct args *)param;
 	printf("FD=%d\n",prm->fd);
@@ -12,7 +12,7 @@ extern "C" void* printMem(void* param)
 	while(1)
 	{
 		char nl[256]={};
-		FILE *f = popen("free -m","r");
+		FILE *f = popen("df -h","r");
 		while( fgets(nl,256,f) != NULL )
 		{
 			write(prm->fd,nl,strlen(nl));

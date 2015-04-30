@@ -1,5 +1,5 @@
 <name>mem</name>
-<libname>./libdsk.so.1.0.0</libname>
+<libname>./lib/libdsk.so</libname>
 <funcname>printDisk</funcname>
 <optype>INSERT</optype>
 <freq>8</freq>

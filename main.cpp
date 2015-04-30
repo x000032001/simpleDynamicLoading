@@ -45,11 +45,13 @@ void monitorFuncHandler(const char* param,int fd[2])
 
 	const char* libName = doc.FirstChildElement("libname")->GetText();
 	const char* funcName = doc.FirstChildElement("funcname")->GetText();
-	void* handle; // get handle and release at exit
 	func_t func = getFunc(libName ,funcName);
 
 	// get a pipe fd pair
-	pipe(fd);
+	if( 0 != pipe(fd) )
+	{
+		fprintf(stderr,"[ERROR] %s:%d create pipe error.\n",__FILE__,__LINE__);
+	}
 	printf("get fd = %d,%d\n",fd[0],fd[1]);
 
 	int flags = fcntl(fd[0], F_GETFL, 0);
@@ -93,7 +95,7 @@ int main()
 			FD_SET(fds[i][0] , &set);
 
 		// set select and waiting data ( no timed out )
-		int rc = select( maxfd+1 , &set , NULL , NULL , NULL );
+		select( maxfd+1 , &set , NULL , NULL , NULL );
 		for( int i = 0 ; i < 2 ; i++ )
 		{
 			int fdn = fds[i][0];

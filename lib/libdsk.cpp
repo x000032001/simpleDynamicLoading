@@ -7,7 +7,7 @@
 extern "C" void* printDisk(void* param)
 {
 	fprintf( stderr , "[INFO] %s() has been called.\n" , __func__ );
-	struct args *prm = (struct args *)param;
+	struct arguments *prm = (struct arguments *)param;
 	fprintf( stderr , "[DEBUG] %s() using fd = %d.\n" , __func__ , prm->fd );
 	while(1)
 	{

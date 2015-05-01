@@ -1,5 +1,5 @@
 
-struct args {
+struct arguments {
 	int fd;
 	int iv;
 };

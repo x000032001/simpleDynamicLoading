@@ -1,7 +1,9 @@
 CC = gcc 
 CXX = g++
-CFLAGS = -Wall -Wextra -O2
-CXXFLAGS = -Wall -Wextra -O2
+CFLAGS = -Wall -Wextra -O2 
+CXXFLAGS = -Wall -Wextra -O2 -std=c++11 -g
+
+INCFLAGS = -Iutils
 LDFLAGS = -ldl -lpthread
 RM = rm -f
 
@@ -11,11 +13,11 @@ OBJS=$(patsubst %.cpp,%.o,$(SRCS))
 .PHONY: all
 all: main
  
-main: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS) 
+main: $(OBJS) 
+	$(CXX) $(CXXFLAGS) -o $@ $^ utils/*.o $(LDFLAGS) && make -C lib && make -C utils
 
 %.o: %.cpp
-	-$(CXX) ${CXXFLAGS} -c -o $@ $^
+	-$(CXX) ${CXXFLAGS} $(INCFLAGS) -c -o $@ $^
  
 .PHONY: clean
 clean:

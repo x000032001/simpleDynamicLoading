@@ -14,16 +14,18 @@ plugin::plugin()
 plugin::~plugin()
 {
 	if(fd[0]){
+		fprintf(stderr,"[DEBUG] destroy plugin, close fd %d,%d\n",fd[0],fd[1]);
 		close(fd[0]);
 		close(fd[1]);
-		pthread_join(id,NULL);
-}
 
-	//if(dlHandle)dlclose(dlHandle);
-	//if(libN)free(libN);
-	//if(funcN)free(funcN);
-	//pthread_kill(id,1);
-	//pthread_cancel(id);
+		fprintf(stderr,"[DEBUG] destroy plugin, wait for thread join.\n");
+		pthread_join(id,NULL);
+
+		fprintf(stderr,"[DEBUG] destroy plugin, release resource.\n");
+		if(dlHandle)dlclose(dlHandle);
+		if(libN)free(libN);
+		if(funcN)free(funcN);
+	}
 }
 
 void plugin::initPipe()

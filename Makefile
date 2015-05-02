@@ -14,7 +14,9 @@ OBJS=$(patsubst %.cpp,%.o,$(SRCS))
 all: main
  
 main: $(OBJS) 
-	$(CXX) $(CXXFLAGS) -o $@ $^ utils/*.o $(LDFLAGS) && make -C lib && make -C utils
+	make -C lib && \
+	make -C utils && \
+	$(CXX) $(CXXFLAGS) -o $@ $^ utils/*.o $(LDFLAGS) 
 
 %.o: %.cpp
 	-$(CXX) ${CXXFLAGS} $(INCFLAGS) -c -o $@ $^

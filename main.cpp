@@ -8,7 +8,7 @@ bool run = true;
 
 void my_exit(int sig)
 {
-	puts("exiting set run flag to false.");
+	puts("catch SIGNAL Interrupt. set run flag to false.");
 	run = false;
 }
 

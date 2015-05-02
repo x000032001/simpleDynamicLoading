@@ -19,12 +19,15 @@ plugin::~plugin()
 		close(fd[1]);
 
 		fprintf(stderr,"[DEBUG] destroy plugin, wait for thread join.\n");
+		pthread_cancel(id);
 		pthread_join(id,NULL);
 
 		fprintf(stderr,"[DEBUG] destroy plugin, release resource.\n");
 		if(dlHandle)dlclose(dlHandle);
 		if(libN)free(libN);
 		if(funcN)free(funcN);
+
+		fprintf(stderr,"[DEBUG] destroy plugin, done.\n");
 	}
 }
 

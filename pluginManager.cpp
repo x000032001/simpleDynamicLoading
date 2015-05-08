@@ -63,15 +63,16 @@ void pluginManager::printInfo()
 	
 	for( size_t i = 0 ; i < size ; ++i )
 	{
-		fprintf( stderr , "[DEBUG] testing fd = %d\n" , plugins[i].getReadFd() );
 		if( FD_ISSET( plugins[i].getReadFd() , &fds ) )
 		{
+			fprintf(stderr,"[DEBUG] FD:%d ======== recv info ========\n",plugins[i].getReadFd() );
 			char buff[256] = {};
 			while( read(plugins[i].getReadFd(),buff,255) >= 0 )
 			{
-				fprintf( stderr , "[DEBUG] read info from pipe:\n %s\n",buff );
+				fprintf( stderr , "%s",buff );
 				memset(buff,0,256);
 			}
+			fprintf(stderr,"[DEBUG] FD:%d ========   done    ========\n",plugins[i].getReadFd() );
 		}
 	}
 }

@@ -12,7 +12,7 @@ extern "C" void* printDisk(void* param)
 	while(1)
 	{
 		char nl[256]={};
-		FILE *f = popen("df -h","r");
+		FILE *f = popen("df -h 2>/dev/null","r");
 		while( fgets(nl,256,f) != NULL )
 		{
 			if( 0 > write(prm->fd,nl,strlen(nl)) )

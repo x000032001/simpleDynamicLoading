@@ -2,4 +2,4 @@
 <libname>./lib/libmem.so</libname>
 <funcname>printMem</funcname>
 <optype>INSERT</optype>
-<freq>5</freq>
+<freq>2</freq>

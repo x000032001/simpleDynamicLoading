@@ -1,7 +1,7 @@
 CC = gcc 
 CXX = g++
-CFLAGS = -c -fPIC -Wall -Wextra -O2 -I..
-CXXFLAGS = -c -fPIC -Wall -Wextra -O2 -I..
+CFLAGS = -c -g -fPIC -Wall -Wextra -O2 -I..
+CXXFLAGS = -c -g -fPIC -Wall -Wextra -O2 -I..
 LDFLAGS = -shared
 RM = rm -f
 

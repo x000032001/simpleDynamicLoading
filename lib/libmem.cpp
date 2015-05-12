@@ -3,8 +3,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
+#include <pthread.h>
 
 static int count;
+static FILE *f = NULL;
 
 extern "C" void init()
 {
@@ -14,20 +16,26 @@ extern "C" void init()
 extern "C" void countInc()
 {
 	count++;
-	fprintf(stderr,"[TEST] now count = %d\n",count);
+	//fprintf(stderr,"[TEST] now count = %d\n",count);
+}
+
+extern "C" void cleanup(void *useless)
+{
+	if(f)pclose(f);
 }
 
 extern "C" void* printMem(void* param)
 {
-	init();
+	//init();
 	fprintf( stderr , "[INFO] %s() has been called.\n" , __func__ );
 	struct arguments *prm = (struct arguments *)param;
 	fprintf( stderr , "[DEBUG] %s() using fd = %d.\n" , __func__ , prm->fd );
+	pthread_cleanup_push (cleanup, NULL);
 	while(1)
 	{
-		countInc();
+		//countInc();
 		char nl[256]={};
-		FILE *f = popen("free -m","r");
+		f = popen("free -m","r");
 		while( fgets(nl,255,f) != NULL )
 		{
 			//fprintf( stderr , "[DEBUG] write:%s\n" , nl );
@@ -41,8 +49,10 @@ extern "C" void* printMem(void* param)
 			}
 		}
 		pclose(f);
+		f=NULL;
 		sleep(prm->iv);
 	}
+	pthread_cleanup_pop(1);
 
 	return NULL;
 }

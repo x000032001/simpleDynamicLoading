@@ -34,7 +34,7 @@ class plugin {
 		struct arguments args;
 
 		void* dlHandle;
-		func_t run;
+		func_t runFunc;
 		char *libN ,*funcN;
 		
 };

@@ -1,11 +1,13 @@
 #ifndef PM_H
 #define PM_H
 
+#include <vector>
 #include "plugin.h"
 #include "tinyxml2.h"
 
 #define MAX_SIZE 10
 
+using std::vector;
 using namespace tinyxml2;
 
 class pluginManager {
@@ -18,10 +20,11 @@ class pluginManager {
 
 		void printInfo();
 	private:
-		plugin plugins[MAX_SIZE];
+		//plugin plugins[MAX_SIZE];
+		vector<plugin*> plugins;
 		fd_set current_fds;
 		int max_fd;
-		size_t size;
+		//size_t size;
 		
 };
 #endif

@@ -3,7 +3,7 @@
 
 plugin::plugin()
 {
-	run = NULL;
+	runFunc = NULL;
 	dlHandle = NULL;
 	libN = NULL;
 	funcN = NULL;
@@ -50,7 +50,7 @@ void plugin::initPipe()
 void plugin::setArgs(const struct arguments &passArgs)
 {
 	//fprintf(stderr,"[DEBUG] creating thread\n");
-	if( run == NULL )
+	if( runFunc == NULL )
 	{
 		fprintf( stderr , "[ERROR] null function.\n" );
 		return;
@@ -63,7 +63,7 @@ void plugin::setArgs(const struct arguments &passArgs)
 
 void plugin::createThread()
 {
-	if( pthread_create( &id , NULL , run , (void*)&args  ) )
+	if( pthread_create( &id , NULL , runFunc , (void*)&args  ) )
 	{
 		fputs("[ERROR] pthread create error",stderr);
 		exit(1);
@@ -81,7 +81,7 @@ void plugin::getFunc(const char* lib,const char* funcName)
 		exit(1);
 	}
 
-	run = (func_t)dlsym( dlHandle , funcN );
+	runFunc = (func_t)dlsym( dlHandle , funcN );
 
 	char* error = NULL;
 	if( (error = dlerror()) != NULL )
